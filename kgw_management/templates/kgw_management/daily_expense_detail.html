@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Daily Expense Detail</title>
+</head>
+<body>
+    <h1>Daily Expense Detail</h1>
+    <p>Date: {{ object.date }}</p>
+    <p>Job No: {{ object.job_no }}</p>
+    <p>Detail: {{ object.detail }}</p>
+    <p>Quantity: {{ object.quantity }}</p>
+    <p>UOM: {{ object.uom }}</p>
+    <p>Unit Price: {{ object.unit_price }}</p>
+    <p>Total: {{ object.total }}</p>
+    <a href="{% url 'daily-expense-update' object.pk %}">Edit</a>
+    <a href="{% url 'daily-expense-list' %}">Back to Daily Expense List</a>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Staff Overtime</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+        }
+        .confirm-delete {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .back-link, .confirm-button {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+        }
+        .back-link {
+            background-color: #4CAF50;
+        }
+        .confirm-button {
+            background-color: #d9534f; /* Bootstrap danger color */
+        }
+        .confirm-button:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+<body>
+    <h1>Delete Staff Overtime</h1>
+    <div class="confirm-delete">
+        <p>Are you sure you want to delete the overtime record for <strong>{{ object.stuff_name }}</strong>?</p>
+        <a href="{% url 'staff-overtime-list' %}" class="back-link">Cancel</a>
+        <form method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="confirm-button">Confirm Delete</button>
+        </form>
+    </div>
+</body>
+</html>

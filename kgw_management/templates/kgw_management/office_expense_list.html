@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Office Mechineries & Other Expense</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #007bff;
+            text-align: center;
+        }
+        .add-expense {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .action-links a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #007bff;
+        }
+        .action-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Office Mechineries & Other Expenses</h1>
+    <a href="{% url 'office-expense-create' %}" class="add-expense">Add New Expense</a>
+
+    <form method="get" action="{% url 'office-expense-list' %}">
+        <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search by description">
+        <button type="submit">Search</button>
+    </form>
+
+    {% regroup object_list by date|date:"F-Y" as grouped_expenses %}
+    {% for group in grouped_expenses %}
+        <h2>{{ group.grouper }}</h2>
+        <table>
+            <thead>
+                <tr>
+                    
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>UOM</th>
+                    <th>Unit Price</th>
+                    <th>Total</th>
+                    <th>Note</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in group.list %}
+                    <tr>
+                        
+                        <td>{{ expense.date }}</td>
+                        <td>{{ expense.description }}</td>
+                        <td>{{ expense.quantity }}</td>
+                        <td>{{ expense.uom }}</td>
+                        <td>{{ expense.unit_price }}</td>
+                        <td>{{ expense.total }}</td>
+                        <td>{{ expense.note }}</td>
+                        <td class="action-links">
+                            <a href="{% url 'office-expense-update' expense.pk %}">Edit</a> |
+                            <a href="{% url 'office-expense-delete' expense.pk %}">Delete</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="9" style="text-align: center;">No expenses found for this month.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+</body>
+</html>

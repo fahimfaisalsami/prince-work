@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Staff Overtime Detail</title>
+</head>
+<body>
+    <h1>Staff Overtime Detail</h1>
+    <p>Staff Name: {{ object.staff_name }}</p>
+    <p>Overtime Hour: {{ object.overtime_hour }}</p>
+    <p>Overtime Amount: {{ object.overtime_amount }}</p>
+    <p>Total: {{ object.total }}</p>
+    <p>Snacks: {{ object.snacks }}</p>
+    <p>All Total: {{ object.all_total }}</p>
+    <a href="{% url 'staff-overtime-update' object.pk %}">Edit</a>
+    <a href="{% url 'staff-overtime-list' %}">Back to Staff Overtime List</a>
+</body>
+</html>

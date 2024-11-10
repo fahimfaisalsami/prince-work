@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cash In Detail</title>
+</head>
+<body>
+    <h1>Cash In Detail</h1>
+    <p>Date: {{ object.date }}</p>
+    <p>Description: {{ object.description }}</p>
+    <p>Amount: {{ object.amount }}</p>
+    <p>Note: {{ object.note }}</p>
+    <a href="{% url 'cash-in-update' object.pk %}">Edit</a>
+    <a href="{% url 'cash-in-list' %}">Back to Cash In List</a>
+</body>
+</html>

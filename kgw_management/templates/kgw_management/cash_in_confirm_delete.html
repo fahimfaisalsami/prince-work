@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Cash In</title>
+</head>
+<body>
+    <h1>Delete Cash In</h1>
+    <p>Are you sure you want to delete the cash in for "{{ object.description }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, delete</button>
+    </form>
+    <a href="{% url 'cash-in-list' %}">Cancel</a>
+</body>
+</html>

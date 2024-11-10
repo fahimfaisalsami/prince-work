@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ form.instance.pk|yesno:"Edit Job,Add Job" }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin-top: 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+
+    <!-- JavaScript to calculate total -->
+    <script>
+        function calculateTotal() {
+            // Get the values from the input fields
+            const quantity = parseFloat(document.getElementById('id_quantity').value) || 0; // Assuming the field is named 'quantity'
+            const unitPrice = parseFloat(document.getElementById('id_unit_price').value) || 0; // Assuming the field is named 'unit_price'
+            const loss = parseFloat(document.getElementById('id_loss').value) || 0; // Assuming the field is named 'loss'
+
+            // Calculate the total
+            const total = (quantity * unitPrice) - loss;
+
+            // Set the total value in the total input field
+            document.getElementById('id_total').value = total.toFixed(2); // Assuming the field is named 'total'
+        }
+
+        // Add event listeners to trigger the calculation whenever the values change
+        window.onload = function() {
+            document.getElementById('id_quantity').addEventListener('input', calculateTotal);
+            document.getElementById('id_unit_price').addEventListener('input', calculateTotal);
+            document.getElementById('id_loss').addEventListener('input', calculateTotal);
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ form.instance.pk|yesno:"Edit Job,Add Job" }}</h1>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}  <!-- This will render the input fields -->
+                {% if field.help_text %}
+                    <small style="color: #666;">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                    <p style="color: red;">{{ error }}</p>
+                {% endfor %}
+            {% endfor %}
+
+            <button type="submit">Save</button>
+        </form>
+    </div>
+</body>
+</html>

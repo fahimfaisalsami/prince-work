@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Detail</title>
+</head>
+<body>
+    <h1>Job Detail</h1>
+    <p>Order Date: {{ object.order_date }}</p>
+    <p>Job No: {{ object.job_no }}</p>
+    <p>Customer Name: {{ object.customer_name }}</p>
+    <p>Item Description: {{ object.item_description }}</p>
+    <p>Quantity: {{ object.quantity }}</p>
+    <p>Unit Price: {{ object.unit_price }}</p>
+    <p>Loss: {{ object.loss }}</p>
+    <p>Total: {{ object.total }}</p>
+    <p>Advanced: {{ object.advanced }}</p>
+    <p>Due: {{ object.due }}</p>
+    <a href="{% url 'job-update' object.pk %}">Edit</a>
+    <a href="{% url 'job-list' %}">Back to Job List</a>
+</body>
+</html>
