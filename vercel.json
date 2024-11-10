@@ -10,4 +10,7 @@
             "dest": "myproject/wsgi.py"
         }
     ]
+    "hooks": {
+    "postinstall": "python manage.py makemigrations && python manage.py migrate"
+  }
 }
